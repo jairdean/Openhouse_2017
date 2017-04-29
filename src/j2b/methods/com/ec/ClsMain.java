@@ -29,8 +29,15 @@ public class ClsMain extends JFrame {
 	private JToggleButton tglbtnLuzGarageOff;
 	private JLabel labeltemepaturaactual;
 	private JTextField txtactivarac;
-	int acencendido=45;
+	int acencendido=24;
 	private JLabel labelac;
+	private JPanel panel_2;
+	private JPanel panel_1;
+	private JPanel panel;
+	private JToggleButton tglabrirventana;
+	private JToggleButton tglbtnAbrirPuertaOff;
+	private JToggleButton tglbtnAbrirParkingOff;
+	private JPanel panel_3;
 	/**
 	 * Launch the application.
 	 */
@@ -62,7 +69,7 @@ public class ClsMain extends JFrame {
 		tabbedPane.setBounds(29, 37, 512, 225);
 		contentPane.add(tabbedPane);
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		tabbedPane.addTab("LUZ HOGAR", null, panel, null);
 		panel.setLayout(null);
 		
@@ -131,7 +138,7 @@ public class ClsMain extends JFrame {
 		tglbtnLuzGarageOff.setBounds(321, 72, 149, 23);
 		panel.add(tglbtnLuzGarageOff);
 		
-		JPanel panel_1 = new JPanel();
+		panel_1 = new JPanel();
 		tabbedPane.addTab("TEMPERATURA", null, panel_1, null);
 		panel_1.setLayout(null);
 		
@@ -144,7 +151,7 @@ public class ClsMain extends JFrame {
 		lblActivarAc.setBounds(288, 11, 71, 14);
 		panel_1.add(lblActivarAc);
 		
-		labelac = new JLabel("45'");
+		labelac = new JLabel("24'");
 		labelac.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		labelac.setBounds(190, 46, 100, 70);
 		panel_1.add(labelac);
@@ -170,8 +177,59 @@ public class ClsMain extends JFrame {
 		btnAc.setBounds(420, 46, 65, 70);
 		panel_1.add(btnAc);
 		
-		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("panel_2", null, panel_2, null);
+		panel_2 = new JPanel();
+		tabbedPane.addTab("ABRIR / CERRAR", null, panel_2, null);
 		panel_2.setLayout(null);
+		
+		tglabrirventana = new JToggleButton("Abrir ventana OFF");
+		tglabrirventana.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(tglabrirventana.isSelected()){
+					tglabrirventana.setText("Abrir ventana ON");
+					System.out.println("Abrir ventana ON");
+				}else{
+					tglabrirventana.setText("Abrir ventana OFF");
+					System.out.println("Abrir ventana OFF");
+				}
+			}
+		});
+		tglabrirventana.setBounds(10, 11, 150, 23);
+		panel_2.add(tglabrirventana);
+		
+		tglbtnAbrirPuertaOff = new JToggleButton("Abrir puerta OFF");
+		tglbtnAbrirPuertaOff.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(tglbtnAbrirPuertaOff.isSelected()){
+					tglbtnAbrirPuertaOff.setText("Abrir puerta ON");
+					System.out.println("Abrir puerta ON");
+				}else{
+					tglbtnAbrirPuertaOff.setText("Abrir ventana OFF");
+					System.out.println("Abrir puerta OFF");
+				}
+				
+			}
+		});
+		tglbtnAbrirPuertaOff.setBounds(10, 60, 150, 23);
+		panel_2.add(tglbtnAbrirPuertaOff);
+		
+		tglbtnAbrirParkingOff = new JToggleButton("Abrir parking OFF");
+		tglbtnAbrirParkingOff.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(tglbtnAbrirParkingOff.isSelected()){
+					tglbtnAbrirParkingOff.setText("Abrir parking ON");
+					System.out.println("Abrir parking ON");
+				}else{
+					tglbtnAbrirParkingOff.setText("Abrir parking OFF");
+					System.out.println("Abrir parking OFF");
+				}
+				
+			}
+		});
+		tglbtnAbrirParkingOff.setBounds(240, 11, 150, 23);
+		panel_2.add(tglbtnAbrirParkingOff);
+		
+		panel_3 = new JPanel();
+		tabbedPane.addTab("MODULO SEGURIDAD", null, panel_3, null);
+		panel_3.setLayout(null);
 	}
 }
