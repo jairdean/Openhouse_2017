@@ -86,6 +86,17 @@ public class ClsLogin extends JFrame {
 		txtuser.setColumns(10);
 		
 		txtpassword = new JPasswordField();
+		txtpassword.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+		
+						 if (e.getKeyCode()==KeyEvent.VK_ENTER){
+					            entrada();
+					        }
+					}
+				});
+				
+		
 		txtpassword.setBackground(new Color(30, 144, 255));
 		txtpassword.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Contrase\u00F1a", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(255, 255, 255)));
 		txtpassword.setBounds(168, 141, 172, 43);
@@ -93,16 +104,6 @@ public class ClsLogin extends JFrame {
 		
 		
 		btnLogIn = new JButton("Entrar");
-		btnLogIn.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				
-				 if (e.getKeyCode()==KeyEvent.VK_ENTER){
-			            System.out.println("Hello");
-			            entrada();
-			        }
-			}
-		});
 		btnLogIn.setBackground(new Color(102, 205, 170));
 		btnLogIn.setIcon(new ImageIcon(".\\imagen\\casa.png")); 
 		btnLogIn.setRolloverIcon(new ImageIcon(".\\imagen\\casa2.png"));
