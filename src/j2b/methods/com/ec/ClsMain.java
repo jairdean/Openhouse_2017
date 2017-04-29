@@ -13,6 +13,9 @@ import javax.swing.JToggleButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
+
+import j2b.db.com.ec.ClsMetodos;
+
 import javax.swing.event.ChangeEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -47,7 +50,7 @@ public class ClsMain extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ClsMain frame = new ClsMain();
+					ClsMain frame = new ClsMain("");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,8 +61,9 @@ public class ClsMain extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param clave_usuario 
 	 */
-	public ClsMain() {
+	public ClsMain(String clave_usuario) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 501);
 		contentPane = new JPanel();
@@ -233,6 +237,17 @@ public class ClsMain extends JFrame {
 		panel_3 = new JPanel();
 		tabbedPane.addTab("MODULO SEGURIDAD", null, panel_3, null);
 		panel_3.setLayout(null);
+		
+		JButton btnValidaClave = new JButton("Valida clave");
+		btnValidaClave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				System.out.println(clave_usuario);
+				
+			}
+		});
+		btnValidaClave.setBounds(234, 34, 89, 23);
+		panel_3.add(btnValidaClave);
 		
 		lblNewLabel = new JLabel();
 		lblNewLabel.setIcon(new ImageIcon(".\\imagen\\fondo1.jpg"));

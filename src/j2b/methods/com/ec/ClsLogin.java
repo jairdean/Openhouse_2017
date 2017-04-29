@@ -137,7 +137,7 @@ public class ClsLogin extends JFrame {
 		if(obj.ComprobarLoguin(txtuser.getText(),txtpassword.getText())){
 			System.out.println("correcto");
 			setVisible(false);
-		        new ClsMain().setVisible(true);
+		        new ClsMain(obj.getClave_usuario()).setVisible(true);
 		}else{
 			JOptionPane.showMessageDialog(null, "error","no reconocido",JOptionPane.ERROR_MESSAGE);
 			txtuser.requestFocus();

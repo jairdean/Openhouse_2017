@@ -4,6 +4,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ClsMetodos {
+	String clave_usuario;
+	public String getClave_usuario() {
+		return clave_usuario;
+	}
+	public void setClave_usuario(String clave_usuario) {
+		this.clave_usuario = clave_usuario;
+	}
 	public boolean ComprobarLoguin(String usuario, String clave){
 		boolean t = false;
 		ClsConexion obj = new ClsConexion();
@@ -14,6 +21,7 @@ public class ClsMetodos {
 		try {
 			rs = obj.Consulta(sql);
 			while(rs.next()){
+				clave_usuario=rs.getString(5);
 				t=true;
 			}
 		} catch (Exception e) {
