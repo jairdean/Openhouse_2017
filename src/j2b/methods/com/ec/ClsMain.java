@@ -47,9 +47,7 @@ public class ClsMain extends JFrame {
 	private JToggleButton tglbtnAbrirParkingOff;
 	private JPanel panel_3;
 	private JLabel lblNewLabel;
-	private JLabel temp_validarclave;
-	private JPasswordField temp_txtpasswordField;
-	private JButton temp_btnValidaClave;
+	private JToggleButton tglbtnActivarModulo;
 	/**
 	 * Launch the application.
 	 */
@@ -245,43 +243,23 @@ public class ClsMain extends JFrame {
 		tabbedPane.addTab("MODULO SEGURIDAD", null, panel_3, null);
 		panel_3.setLayout(null);
 		
-		temp_btnValidaClave = new JButton("Valida clave");
-		temp_btnValidaClave.addActionListener(new ActionListener() {
+		tglbtnActivarModulo = new JToggleButton("Activar modulo OFF");
+		tglbtnActivarModulo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(temp_txtpasswordField.getText().equals(clave_usuario) && !temp_txtpasswordField.getText().equals("")){
-					System.out.println("Validacion de clave ingresada: "+temp_txtpasswordField.getText()+", y la clave real: "+clave_usuario);
-					temp_txtpasswordField.setText("");
+				String valida_c=JOptionPane.showInputDialog("Validar clave");
+				if(tglbtnActivarModulo.isSelected() && valida_c.equals(clave_usuario) && !valida_c.equals("") ){
+					tglbtnActivarModulo.setText("Activar modulo ON");
+					System.out.println("Activar modulo ON");
 				}else{
-					JOptionPane.showMessageDialog(null, "ERROR","Clave incorrecta",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "EROR","Clave incorrecta",JOptionPane.ERROR_MESSAGE);
+					tglbtnActivarModulo.setSelected(false);
+					tglbtnActivarModulo.setText("Activar modulo OFF");
+					System.out.println("Activar modulo OFF");
 				}
 			}
 		});
-		temp_btnValidaClave.setBounds(222, 39, 124, 23);
-		panel_3.add(temp_btnValidaClave);
-		
-		temp_validarclave = new JLabel("VALIDAR CLAVE");
-		temp_validarclave.setBounds(163, 11, 116, 14);
-		panel_3.add(temp_validarclave);
-		
-		temp_txtpasswordField = new JPasswordField();
-		temp_txtpasswordField.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode()==KeyEvent.VK_ENTER){
-					
-					if(temp_txtpasswordField.getText().equals(clave_usuario) && !temp_txtpasswordField.getText().equals("")){
-						System.out.println("Validacion de clave ingresada: "+temp_txtpasswordField.getText()+", y la clave real: "+clave_usuario);
-						temp_txtpasswordField.setText("");
-					}else{
-						JOptionPane.showMessageDialog(null, "ERROR","Clave incorrecta",JOptionPane.ERROR_MESSAGE);
-					}
-					
-					
-			        }
-			}
-		});
-		temp_txtpasswordField.setBounds(10, 39, 124, 23);
-		panel_3.add(temp_txtpasswordField);
+		tglbtnActivarModulo.setBounds(10, 11, 149, 23);
+		panel_3.add(tglbtnActivarModulo);
 		
 		lblNewLabel = new JLabel();
 		lblNewLabel.setIcon(new ImageIcon(".\\imagen\\fondo1.jpg"));
