@@ -6,10 +6,17 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ClsLogin extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField txtuser;
+	private JTextField txtpassword;
+	private JButton btnLogIn;
 
 	/**
 	 * Launch the application.
@@ -35,8 +42,29 @@ public class ClsLogin extends JFrame {
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		txtuser = new JTextField();
+		txtuser.setBounds(188, 100, 86, 20);
+		contentPane.add(txtuser);
+		txtuser.setColumns(10);
+		
+		txtpassword = new JTextField();
+		txtpassword.setBounds(188, 131, 86, 20);
+		contentPane.add(txtpassword);
+		txtpassword.setColumns(10);
+		
+		btnLogIn = new JButton("LOG IN");
+		btnLogIn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+				
+			}
+		});
+		btnLogIn.setBounds(188, 182, 89, 23);
+		contentPane.add(btnLogIn);
 	}
-
 }
