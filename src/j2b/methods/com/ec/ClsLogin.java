@@ -14,13 +14,14 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class ClsLogin extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtuser;
-	private JTextField txtpassword;
 	private JButton btnLogIn;
+	private JPasswordField txtpassword;
 
 	/**
 	 * Launch the application.
@@ -43,7 +44,7 @@ public class ClsLogin extends JFrame {
 	 */
 	public ClsLogin() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 490, 322);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -54,11 +55,6 @@ public class ClsLogin extends JFrame {
 		contentPane.add(txtuser);
 		txtuser.setColumns(10);
 		
-		txtpassword = new JTextField();
-		txtpassword.setBounds(188, 131, 86, 20);
-		contentPane.add(txtpassword);
-		txtpassword.setColumns(10);
-		
 		btnLogIn = new JButton("LOG IN");
 		btnLogIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -66,6 +62,8 @@ public class ClsLogin extends JFrame {
 				
 				if(obj.ComprobarLoguin(txtuser.getText(),txtpassword.getText())){
 					System.out.println("correcto");
+					setVisible(false);
+				        new ClsMain().setVisible(true);
 				}else{
 					JOptionPane.showMessageDialog(null, "error","no reconocido",JOptionPane.ERROR_MESSAGE);
 				}
@@ -76,5 +74,9 @@ public class ClsLogin extends JFrame {
 		});
 		btnLogIn.setBounds(188, 182, 89, 23);
 		contentPane.add(btnLogIn);
+		
+		txtpassword = new JPasswordField();
+		txtpassword.setBounds(188, 142, 86, 20);
+		contentPane.add(txtpassword);
 	}
 }
