@@ -4,8 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import j2b.db.com.ec.ClsMetodos;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -58,7 +62,13 @@ public class ClsLogin extends JFrame {
 		btnLogIn = new JButton("LOG IN");
 		btnLogIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ClsMetodos obj=new ClsMetodos(); 
 				
+				if(obj.ComprobarLoguin(txtuser.getText(),txtpassword.getText())){
+					System.out.println("correcto");
+				}else{
+					JOptionPane.showMessageDialog(null, "error","no reconocido",JOptionPane.ERROR_MESSAGE);
+				}
 				
 				
 				
