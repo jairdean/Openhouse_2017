@@ -25,6 +25,8 @@ import javax.swing.UIManager;
 import java.awt.Font;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class ClsLogin extends JFrame {
 
@@ -91,28 +93,23 @@ public class ClsLogin extends JFrame {
 		
 		
 		btnLogIn = new JButton("Entrar");
+		btnLogIn.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				
+				 if (e.getKeyCode()==KeyEvent.VK_ENTER){
+			            System.out.println("Hello");
+			            entrada();
+			        }
+			}
+		});
 		btnLogIn.setBackground(new Color(102, 205, 170));
 		btnLogIn.setIcon(new ImageIcon(".\\imagen\\casa.png")); 
 		btnLogIn.setRolloverIcon(new ImageIcon(".\\imagen\\casa2.png"));
 		btnLogIn.setBorder(new SoftBevelBorder(BevelBorder.RAISED, new Color(255, 255, 240), null, null, null));
 		btnLogIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ClsMetodos obj=new ClsMetodos(); 
-				
-				if(txtuser.getText().equals("")|| txtpassword.getText().equals("")){
-					JOptionPane.showMessageDialog(null, "Ingrese datos","ERROR",JOptionPane.ERROR_MESSAGE);
-					txtuser.requestFocus();
-				} else 
-				if(obj.ComprobarLoguin(txtuser.getText(),txtpassword.getText())){
-					System.out.println("correcto");
-					setVisible(false);
-				        new ClsMain().setVisible(true);
-				}else{
-					JOptionPane.showMessageDialog(null, "error","no reconocido",JOptionPane.ERROR_MESSAGE);
-					txtuser.requestFocus();
-					txtuser.setText("");
-					txtpassword.setText("");
-				}
+				entrada();
 			
 			}
 		});
@@ -120,8 +117,7 @@ public class ClsLogin extends JFrame {
 		contentPane.add(btnLogIn);
 		
 		lblNewLabel_1 = new JLabel();
-		lblNewLabel_1.setFont(new Font("Book Antiqua", Font.BOLD, 12));
-		lblNewLabel_1.setIcon(new ImageIcon("D:\\Eclipses\\eclipse Neon\\workspaceNeon\\Openhouse_2017\\imagen\\mar.jpg"));
+		lblNewLabel_1.setIcon(new ImageIcon(".\\imagen\\mar.jpg"));
 		lblNewLabel_1.setBounds(0, 0, 484, 294);
 		contentPane.add(lblNewLabel_1);
 		
@@ -129,4 +125,24 @@ public class ClsLogin extends JFrame {
 		
 		
 	}
+	//Metodo local
+	public void entrada(){
+		ClsMetodos obj=new ClsMetodos(); 
+		
+		if(txtuser.getText().equals("")|| txtpassword.getText().equals("")){
+			JOptionPane.showMessageDialog(null, "Ingrese datos","ERROR",JOptionPane.ERROR_MESSAGE);
+			txtuser.requestFocus();
+		} else 
+		if(obj.ComprobarLoguin(txtuser.getText(),txtpassword.getText())){
+			System.out.println("correcto");
+			setVisible(false);
+		        new ClsMain().setVisible(true);
+		}else{
+			JOptionPane.showMessageDialog(null, "error","no reconocido",JOptionPane.ERROR_MESSAGE);
+			txtuser.requestFocus();
+			txtuser.setText("");
+			txtpassword.setText("");
+		}
+	}
+	
 }

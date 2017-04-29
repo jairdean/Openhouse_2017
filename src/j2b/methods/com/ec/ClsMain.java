@@ -18,6 +18,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public class ClsMain extends JFrame {
@@ -38,6 +39,7 @@ public class ClsMain extends JFrame {
 	private JToggleButton tglbtnAbrirPuertaOff;
 	private JToggleButton tglbtnAbrirParkingOff;
 	private JPanel panel_3;
+	private JLabel lblNewLabel;
 	/**
 	 * Launch the application.
 	 */
@@ -231,5 +233,10 @@ public class ClsMain extends JFrame {
 		panel_3 = new JPanel();
 		tabbedPane.addTab("MODULO SEGURIDAD", null, panel_3, null);
 		panel_3.setLayout(null);
+		
+		lblNewLabel = new JLabel();
+		lblNewLabel.setIcon(new ImageIcon(".\\imagen\\fondo1.jpg"));
+		lblNewLabel.setBounds(0, 0, 584, 491);
+		contentPane.add(lblNewLabel);
 	}
 }
