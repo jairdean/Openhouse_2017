@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -23,6 +24,9 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JPasswordField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class ClsMain extends JFrame {
 
@@ -43,6 +47,9 @@ public class ClsMain extends JFrame {
 	private JToggleButton tglbtnAbrirParkingOff;
 	private JPanel panel_3;
 	private JLabel lblNewLabel;
+	private JLabel temp_validarclave;
+	private JPasswordField temp_txtpasswordField;
+	private JButton temp_btnValidaClave;
 	/**
 	 * Launch the application.
 	 */
@@ -238,16 +245,43 @@ public class ClsMain extends JFrame {
 		tabbedPane.addTab("MODULO SEGURIDAD", null, panel_3, null);
 		panel_3.setLayout(null);
 		
-		JButton btnValidaClave = new JButton("Valida clave");
-		btnValidaClave.addActionListener(new ActionListener() {
+		temp_btnValidaClave = new JButton("Valida clave");
+		temp_btnValidaClave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				System.out.println(clave_usuario);
-				
+				if(temp_txtpasswordField.getText().equals(clave_usuario) && !temp_txtpasswordField.getText().equals("")){
+					System.out.println("Validacion de clave ingresada: "+temp_txtpasswordField.getText()+", y la clave real: "+clave_usuario);
+					temp_txtpasswordField.setText("");
+				}else{
+					JOptionPane.showMessageDialog(null, "ERROR","Clave incorrecta",JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
-		btnValidaClave.setBounds(234, 34, 89, 23);
-		panel_3.add(btnValidaClave);
+		temp_btnValidaClave.setBounds(222, 39, 124, 23);
+		panel_3.add(temp_btnValidaClave);
+		
+		temp_validarclave = new JLabel("VALIDAR CLAVE");
+		temp_validarclave.setBounds(163, 11, 116, 14);
+		panel_3.add(temp_validarclave);
+		
+		temp_txtpasswordField = new JPasswordField();
+		temp_txtpasswordField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode()==KeyEvent.VK_ENTER){
+					
+					if(temp_txtpasswordField.getText().equals(clave_usuario) && !temp_txtpasswordField.getText().equals("")){
+						System.out.println("Validacion de clave ingresada: "+temp_txtpasswordField.getText()+", y la clave real: "+clave_usuario);
+						temp_txtpasswordField.setText("");
+					}else{
+						JOptionPane.showMessageDialog(null, "ERROR","Clave incorrecta",JOptionPane.ERROR_MESSAGE);
+					}
+					
+					
+			        }
+			}
+		});
+		temp_txtpasswordField.setBounds(10, 39, 124, 23);
+		panel_3.add(temp_txtpasswordField);
 		
 		lblNewLabel = new JLabel();
 		lblNewLabel.setIcon(new ImageIcon(".\\imagen\\fondo1.jpg"));

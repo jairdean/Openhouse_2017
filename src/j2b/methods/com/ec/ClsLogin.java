@@ -136,6 +136,8 @@ public class ClsLogin extends JFrame {
 		} else 
 		if(obj.ComprobarLoguin(txtuser.getText(),txtpassword.getText())){
 			System.out.println("correcto");
+			txtuser.setText("");
+			txtpassword.setText("");
 			setVisible(false);
 		        new ClsMain(obj.getClave_usuario()).setVisible(true);
 		}else{
