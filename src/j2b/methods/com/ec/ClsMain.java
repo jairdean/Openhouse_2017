@@ -48,6 +48,10 @@ public class ClsMain extends JFrame {
 	private JPanel panel_3;
 	private JLabel lblNewLabel;
 	private JToggleButton tglbtnActivarModulo;
+	private JLabel lblNewLabel_1;
+	private JLabel lblNewLabel_2;
+	private JLabel lblNewLabel_3;
+	private JLabel lblNewLabel_4;
 	/**
 	 * Launch the application.
 	 */
@@ -149,6 +153,11 @@ public class ClsMain extends JFrame {
 		tglbtnLuzGarageOff.setBounds(321, 72, 149, 23);
 		panel.add(tglbtnLuzGarageOff);
 		
+		lblNewLabel_1 = new JLabel();
+		lblNewLabel_1.setIcon(new ImageIcon(".\\imagen\\luz.jpg"));
+		lblNewLabel_1.setBounds(0, 0, 507, 197);
+		panel.add(lblNewLabel_1);
+		
 		panel_1 = new JPanel();
 		tabbedPane.addTab("TEMPERATURA", null, panel_1, null);
 		panel_1.setLayout(null);
@@ -187,6 +196,11 @@ public class ClsMain extends JFrame {
 		});
 		btnAc.setBounds(420, 46, 65, 70);
 		panel_1.add(btnAc);
+		
+		lblNewLabel_2 = new JLabel();
+		lblNewLabel_2.setIcon(new ImageIcon(".\\imagen\\calor.jpg"));
+		lblNewLabel_2.setBounds(0, 0, 507, 197);
+		panel_1.add(lblNewLabel_2);
 		
 		panel_2 = new JPanel();
 		tabbedPane.addTab("ABRIR / CERRAR", null, panel_2, null);
@@ -239,6 +253,11 @@ public class ClsMain extends JFrame {
 		tglbtnAbrirParkingOff.setBounds(240, 11, 150, 23);
 		panel_2.add(tglbtnAbrirParkingOff);
 		
+		lblNewLabel_3 = new JLabel();
+		lblNewLabel_3.setIcon(new ImageIcon(".\\imagen\\verde.jpg"));
+		lblNewLabel_3.setBounds(0, 0, 507, 197);
+		panel_2.add(lblNewLabel_3);
+		
 		panel_3 = new JPanel();
 		tabbedPane.addTab("MODULO SEGURIDAD", null, panel_3, null);
 		panel_3.setLayout(null);
@@ -260,6 +279,11 @@ public class ClsMain extends JFrame {
 		});
 		tglbtnActivarModulo.setBounds(10, 11, 149, 23);
 		panel_3.add(tglbtnActivarModulo);
+		
+		lblNewLabel_4 = new JLabel();
+		lblNewLabel_4.setIcon(new ImageIcon(".\\imagen\\pp.jpg"));
+		lblNewLabel_4.setBounds(0, 0, 507, 197);
+		panel_3.add(lblNewLabel_4);
 		
 		lblNewLabel = new JLabel();
 		lblNewLabel.setIcon(new ImageIcon(".\\imagen\\fondo1.jpg"));
