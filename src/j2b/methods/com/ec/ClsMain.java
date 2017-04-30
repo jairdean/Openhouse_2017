@@ -62,6 +62,7 @@ public class ClsMain extends JFrame {
 	private JLabel lblNewLabel_4;
 	private JLabel lbl_smarthouse;
 	private JLabel lblActivarAc;
+	private JLabel lblLuz;
 	/**
 	 * Launch the application.
 	 */
@@ -83,6 +84,7 @@ public class ClsMain extends JFrame {
 	 * @param clave_usuario 
 	 */
 	public ClsMain(String clave_usuario) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 501);
 		contentPane = new JPanel();
@@ -98,8 +100,9 @@ public class ClsMain extends JFrame {
 		tabbedPane.addTab("LUZ HOGAR", null, panel, null);
 		panel.setLayout(null);
 		
-		JLabel lblLuz = new JLabel("Luz");
-		lblLuz.setBounds(214, 0, 46, 14);
+		lblLuz = new JLabel("Luz");
+		lblLuz.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblLuz.setBounds(214, 0, 58, 23);
 		panel.add(lblLuz);
 		
 		tglbtnLuzExteriorOn = new JToggleButton("Luz exterior OFF");
@@ -114,7 +117,7 @@ public class ClsMain extends JFrame {
 				}
 			}
 		});
-		tglbtnLuzExteriorOn.setBounds(10, 11, 149, 23);
+		tglbtnLuzExteriorOn.setBounds(10, 26, 149, 23);
 		panel.add(tglbtnLuzExteriorOn);
 		
 		tglbtnLuzPiso = new JToggleButton("Luz 1 piso OFF");
@@ -145,7 +148,7 @@ public class ClsMain extends JFrame {
 				}	
 			}
 		});
-		tglbtnLuzPiso_1.setBounds(321, 11, 149, 23);
+		tglbtnLuzPiso_1.setBounds(321, 26, 149, 23);
 		panel.add(tglbtnLuzPiso_1);
 		
 		tglbtnLuzGarageOff = new JToggleButton("Luz parking OFF");
@@ -178,8 +181,9 @@ public class ClsMain extends JFrame {
 		panel_1.add(labeltemepaturaactual);
 		
 		lblActivarAc = new JLabel("Activar AC");
+		lblActivarAc.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblActivarAc.setForeground(Color.WHITE);
-		lblActivarAc.setBounds(288, 11, 71, 14);
+		lblActivarAc.setBounds(288, 11, 91, 24);
 		panel_1.add(lblActivarAc);
 		movimiento();
 		
@@ -342,11 +346,11 @@ public class ClsMain extends JFrame {
 			boolean t = true;
 			int x=0,y=0;
 			do {
-				lblActivarAc.setBounds(-30+x, 11, 260, 14);
-				//(288, 11, 71, 14);
+				lblActivarAc.setBounds(-50+x, 11, 260, 14);//su borde seteado es: (288, 11, 71, 14);
+				lblLuz.setBounds(-50+x, 11, 260, 14);//su borde seteado es: (214, 0, 58, 23);;
 				x=x+2;
 				y++;
-				if(x>500){
+				if(x>550){
 					x=0;
 				}
 				if(y>170){
