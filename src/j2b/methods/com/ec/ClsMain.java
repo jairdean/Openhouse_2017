@@ -312,8 +312,9 @@ public class ClsMain extends JFrame {
 		panel_3.add(lblNewLabel_4);
 		
 		lbl_smarthouse = new JLabel("");
-		lbl_smarthouse.setIcon(new ImageIcon(".\\imagen\\smarthouse1.gif"));
-		lbl_smarthouse.setBounds(371, 0, 136, 197);
+		ImageIcon smarthouse1 = new ImageIcon(".\\imagen\\smarthouse1.gif");
+		lbl_smarthouse.setBounds(371, 0,10, 10);
+		lbl_smarthouse.setIcon(smarthouse1);
 		panel_3.add(lbl_smarthouse);
 		
 		lblNewLabel = new JLabel();
