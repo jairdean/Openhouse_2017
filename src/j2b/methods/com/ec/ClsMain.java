@@ -65,11 +65,10 @@ public class ClsMain extends JFrame {
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
-	private JLabel lblNewLabel_4;
 	private JLabel lbl_smarthouse;
 	private JLabel lblActivarAc;
 	private JLabel lblLuz;
-	private JLabel lblNewLabel_5;
+	private JLabel lblNewLabel_4;
 	/**
 	 * Launch the application.
 	 */
@@ -337,25 +336,27 @@ public class ClsMain extends JFrame {
 		tglbtnActivarModulo.setBounds(10, 11, 149, 23);
 		panel_3.add(tglbtnActivarModulo);
 		
+		JButton button = new JButton("Apagar Alarma");
+		button.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 204), new Color(0, 102, 204), new Color(51, 0, 204), new Color(51, 204, 204)));
+		
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		button.setBounds(283, 11, 134, 25);
+		panel_3.add(button);
+		
+		JButton button_1 = new JButton("Clave Puerta");
+		button_1.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 204), new Color(0, 102, 204), new Color(51, 0, 204), new Color(51, 204, 204)));
+		
+		button_1.setBounds(283, 47, 134, 25);
+		panel_3.add(button_1);
+		
 		lblNewLabel_4 = new JLabel();
+		
 		lblNewLabel_4.setIcon(new ImageIcon(".\\imagen\\pp.jpg"));
-		lblNewLabel_4.setBounds(0, 0, 383, 197);
+		lblNewLabel_4.setBounds(0, 0, 507, 197);
 		panel_3.add(lblNewLabel_4);
-		
-		lblNewLabel_5 = new JLabel();
-		lblNewLabel_5.setIcon(new ImageIcon(".\\imagen\\smarthouse1.gif"));
-		lblNewLabel_5.setBounds(379, 0, 128, 197);
-		panel_3.add(lblNewLabel_5);
-		
-		
-		
-		JButton btnApagarAlarma = new JButton("Apagar Alarma");
-		btnApagarAlarma.setBounds(286, 10, 134, 25);
-		panel_3.add(btnApagarAlarma);
-		
-		JButton btnClavePuerta = new JButton("Clave Puerta");
-		btnClavePuerta.setBounds(286, 45, 134, 25);
-		panel_3.add(btnClavePuerta);
 		
 		lblNewLabel = new JLabel();
 		lblNewLabel.setIcon(new ImageIcon(".\\imagen\\fondo1.jpg"));
@@ -395,5 +396,4 @@ public class ClsMain extends JFrame {
 		}
 		
 	}
-
 }
