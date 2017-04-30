@@ -22,6 +22,7 @@ import j2b.db.com.ec.ClsMetodos;
 import javax.swing.event.ChangeEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.awt.Font;
 import java.awt.GridLayout;
 
@@ -366,8 +367,6 @@ public class ClsMain extends JFrame {
 		}
 		
 	}
-	
-	
 	
 	
 	
