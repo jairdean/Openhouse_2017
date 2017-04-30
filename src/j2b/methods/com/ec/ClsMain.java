@@ -269,6 +269,11 @@ public class ClsMain extends JFrame {
 				if(tglbtnActivarModulo.isSelected() && valida_c.equals(clave_usuario) && !valida_c.equals("") ){
 					tglbtnActivarModulo.setText("Activar modulo ON");
 					System.out.println("Activar modulo ON");
+					//agregar aqui la sentencia para habilita los setvisible(true)
+					
+					
+					
+					
 				}else{
 					JOptionPane.showMessageDialog(null, "EROR","Clave incorrecta",JOptionPane.ERROR_MESSAGE);
 					tglbtnActivarModulo.setSelected(false);
