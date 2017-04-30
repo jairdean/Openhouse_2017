@@ -79,7 +79,7 @@ public class ClsLogin extends JFrame {
 		
 		txtuser = new JTextField();
 		txtuser.setFont(new Font("Franklin Gothic Book", Font.BOLD | Font.ITALIC, 13));
-		txtuser.setBackground(new Color(0, 0, 255));
+		txtuser.setBackground(new Color(30, 144, 255));
 		txtuser.setBorder(new TitledBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Usuario", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 255)), "Usuario", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(255, 255, 255)));
 		txtuser.setBounds(167, 85, 172, 43);
 		contentPane.add(txtuser);
