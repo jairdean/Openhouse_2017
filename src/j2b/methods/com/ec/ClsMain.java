@@ -34,6 +34,10 @@ import java.awt.event.KeyEvent;
 
 public class ClsMain extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JToggleButton tglbtnLuzExteriorOn;
 	private JToggleButton tglbtnLuzPiso;
@@ -57,6 +61,7 @@ public class ClsMain extends JFrame {
 	private JLabel lblNewLabel_3;
 	private JLabel lblNewLabel_4;
 	private JLabel lbl_smarthouse;
+	private JLabel lblActivarAc;
 	/**
 	 * Launch the application.
 	 */
@@ -172,9 +177,11 @@ public class ClsMain extends JFrame {
 		labeltemepaturaactual.setBounds(10, 46, 100, 70);
 		panel_1.add(labeltemepaturaactual);
 		
-		JLabel lblActivarAc = new JLabel("Activar AC");
+		lblActivarAc = new JLabel("Activar AC");
+		lblActivarAc.setForeground(Color.WHITE);
 		lblActivarAc.setBounds(288, 11, 71, 14);
 		panel_1.add(lblActivarAc);
+		movimiento();
 		
 		labelac = new JLabel("24'");
 		labelac.setFont(new Font("Tahoma", Font.PLAIN, 50));
@@ -324,4 +331,40 @@ public class ClsMain extends JFrame {
 		
 		
 	}
+	//============================== H I L O ==================================================
+	
+	public void movimiento(){
+		hilado mihilo2 = new hilado();
+		mihilo2.start();
+	}
+	public class hilado extends Thread{
+		public void run(){
+			boolean t = true;
+			int x=0,y=0;
+			do {
+				lblActivarAc.setBounds(-30+x, 11, 260, 14);
+				//(288, 11, 71, 14);
+				x=x+2;
+				y++;
+				if(x>500){
+					x=0;
+				}
+				if(y>170){
+					y=0;
+				}
+				try {
+					sleep(30);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			} while (t);
+			
+		}
+		
+	}
+	
+	
+	
+	
+	
 }
