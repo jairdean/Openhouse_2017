@@ -11,6 +11,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
+import javax.swing.SwingConstants;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
@@ -21,6 +23,8 @@ import javax.swing.event.ChangeEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
+import java.awt.GridLayout;
+
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -52,6 +56,7 @@ public class ClsMain extends JFrame {
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
 	private JLabel lblNewLabel_4;
+	private JLabel lbl_smarthouse;
 	/**
 	 * Launch the application.
 	 */
@@ -265,7 +270,23 @@ public class ClsMain extends JFrame {
 		tglbtnActivarModulo = new JToggleButton("Activar modulo OFF");
 		tglbtnActivarModulo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String valida_c=JOptionPane.showInputDialog("Validar clave");
+				/////////////////////////////////////////////
+				String valida_c="";
+				 JPanel panel = new JPanel(new BorderLayout(5, 5));
+
+				    JPanel label = new JPanel(new GridLayout(0, 1, 2, 2));
+				    label.add(new JLabel("Clave", SwingConstants.RIGHT));
+				    panel.add(label, BorderLayout.WEST);
+
+				    JPanel controls = new JPanel(new GridLayout(0, 1, 2, 2));
+				    JPasswordField password = new JPasswordField();
+				    controls.add(password);
+				    panel.add(controls, BorderLayout.CENTER);
+				    JFrame frame = null;
+				    JOptionPane.showMessageDialog(frame, panel, "Validar clave", JOptionPane.QUESTION_MESSAGE);
+				    valida_c=password.getText();
+				///////////////////////////////////
+				//String valida_c=JOptionPane.showInputDialog("Validar clave");
 				if(tglbtnActivarModulo.isSelected() && valida_c.equals(clave_usuario) && !valida_c.equals("") ){
 					tglbtnActivarModulo.setText("Activar modulo ON");
 					System.out.println("Activar modulo ON");
@@ -287,12 +308,19 @@ public class ClsMain extends JFrame {
 		
 		lblNewLabel_4 = new JLabel();
 		lblNewLabel_4.setIcon(new ImageIcon(".\\imagen\\pp.jpg"));
-		lblNewLabel_4.setBounds(0, 0, 507, 197);
+		lblNewLabel_4.setBounds(0, 0, 383, 197);
 		panel_3.add(lblNewLabel_4);
+		
+		lbl_smarthouse = new JLabel("");
+		lbl_smarthouse.setIcon(new ImageIcon(".\\imagen\\smarthouse1.gif"));
+		lbl_smarthouse.setBounds(371, 0, 136, 197);
+		panel_3.add(lbl_smarthouse);
 		
 		lblNewLabel = new JLabel();
 		lblNewLabel.setIcon(new ImageIcon(".\\imagen\\fondo1.jpg"));
 		lblNewLabel.setBounds(0, 0, 584, 491);
 		contentPane.add(lblNewLabel);
+		
+		
 	}
 }
