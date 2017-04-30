@@ -329,6 +329,14 @@ public class ClsMain extends JFrame {
 		lbl_smarthouse.setIcon(smarthouse1);
 		panel_3.add(lbl_smarthouse);
 		
+		JButton btnApagarAlarma = new JButton("Apagar Alarma");
+		btnApagarAlarma.setBounds(286, 10, 134, 25);
+		panel_3.add(btnApagarAlarma);
+		
+		JButton btnClavePuerta = new JButton("Clave Puerta");
+		btnClavePuerta.setBounds(286, 45, 134, 25);
+		panel_3.add(btnClavePuerta);
+		
 		lblNewLabel = new JLabel();
 		lblNewLabel.setIcon(new ImageIcon(".\\imagen\\fondo1.jpg"));
 		lblNewLabel.setBounds(0, 0, 584, 491);
@@ -367,7 +375,5 @@ public class ClsMain extends JFrame {
 		}
 		
 	}
-	
-	
-	
+
 }
