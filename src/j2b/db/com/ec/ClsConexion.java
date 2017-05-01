@@ -45,7 +45,7 @@ public class ClsConexion {
 		
 		this.driver ="org.postgresql.Driver";
 		this.user="postgres";
-		this.pwd="jairo";
+		this.pwd="DeveloperAdministrador92";
 		this.cadena="jdbc:postgresql://localhost:5432/db_openhouse2017";
 		
 		this.con=this.crearConexion();

@@ -17,11 +17,19 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
 
+import gnu.io.CommPortIdentifier;
+import gnu.io.SerialPort;
+import gnu.io.SerialPortEvent;
+import gnu.io.SerialPortEventListener;
 import j2b.db.com.ec.ClsMetodos;
 
 import javax.swing.event.ChangeEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.util.Enumeration;
 import java.awt.Font;
 import java.awt.GridLayout;
 
@@ -32,8 +40,17 @@ import javax.swing.JPasswordField;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class ClsMain extends JFrame {
+public class ClsMain extends JFrame implements SerialPortEventListener {
 
+	
+	//Variable de conexion del Arduino
+    private OutputStream output=null;
+    private BufferedReader input = null;
+    SerialPort serialPort;
+    private final String PUERTO="COM3";
+    private static final int TIMEOUT=2000; //Milisegundos
+    private static final int DATA_RATE=9600;
+    //Fin de las Variables
 	/**
 	 * 
 	 */
@@ -45,7 +62,7 @@ public class ClsMain extends JFrame {
 	private JToggleButton tglbtnLuzGarageOff;
 	private JLabel labeltemepaturaactual;
 	private JTextField txtactivarac;
-	int acencendido=24;
+	int acencendido=20;
 	private JLabel labelac;
 	private JPanel panel_2;
 	private JPanel panel_1;
@@ -84,6 +101,11 @@ public class ClsMain extends JFrame {
 	 * @param clave_usuario 
 	 */
 	public ClsMain(String clave_usuario) {
+		
+		//Llamar al metodo IniciarConexion
+		iniciarConexion();
+		//FIN
+		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 501);
@@ -111,9 +133,11 @@ public class ClsMain extends JFrame {
 				if(tglbtnLuzExteriorOn.isSelected()){
 					tglbtnLuzExteriorOn.setText("Luz exterior ON");
 					System.out.println("Luz exterior ON");
+					enviarDatos("E");
 				}else{
 					tglbtnLuzExteriorOn.setText("Luz exterior OFF");
 					System.out.println("Luz exterior OFF");
+					enviarDatos("F");
 				}
 			}
 		});
@@ -126,9 +150,11 @@ public class ClsMain extends JFrame {
 				if(tglbtnLuzPiso.isSelected()){
 					tglbtnLuzPiso.setText("Luz 1 piso ON");
 					System.out.println("Luz 1 piso ON");
+					enviarDatos("G");
 				}else{
 					tglbtnLuzPiso.setText("Luz 1 piso OFF");
 					System.out.println("Luz 1 piso OFF");
+					enviarDatos("H");
 				}
 				
 			}
@@ -142,9 +168,11 @@ public class ClsMain extends JFrame {
 				if(tglbtnLuzPiso_1.isSelected()){
 					tglbtnLuzPiso_1.setText("Luz 2 piso ON");
 					System.out.println("Luz 2 piso ON");
+					enviarDatos("N");
 				}else{
 					tglbtnLuzPiso_1.setText("Luz 2 piso OFF");
 					System.out.println("Luz 2 piso OFF");
+					enviarDatos("M");
 				}	
 			}
 		});
@@ -157,9 +185,11 @@ public class ClsMain extends JFrame {
 				if(tglbtnLuzGarageOff.isSelected()){
 					tglbtnLuzGarageOff.setText("Luz parking ON");
 					System.out.println("Luz parking ON");
+					enviarDatos("P");
 				}else{
 					tglbtnLuzGarageOff.setText("Luz parking OFF");
 					System.out.println("Luz parking OFF");
+					enviarDatos("O");
 				}
 			}
 		});
@@ -177,7 +207,7 @@ public class ClsMain extends JFrame {
 		
 		labeltemepaturaactual = new JLabel("0'");
 		labeltemepaturaactual.setFont(new Font("Tahoma", Font.PLAIN, 50));
-		labeltemepaturaactual.setBounds(10, 46, 100, 70);
+		labeltemepaturaactual.setBounds(10, 46, 210, 70);
 		panel_1.add(labeltemepaturaactual);
 		
 		lblActivarAc = new JLabel("Activar AC");
@@ -189,7 +219,7 @@ public class ClsMain extends JFrame {
 		
 		labelac = new JLabel("24'");
 		labelac.setFont(new Font("Tahoma", Font.PLAIN, 50));
-		labelac.setBounds(190, 46, 100, 70);
+		labelac.setBounds(232, 46, 100, 70);
 		panel_1.add(labelac);
 		
 		txtactivarac = new JTextField();
@@ -374,4 +404,159 @@ public class ClsMain extends JFrame {
 		}
 		
 	}
+	
+	public class Temperatura extends Thread{
+		
+		private String temp;
+		
+		public Temperatura(String temp){
+			this.temp = temp;
+		}
+		
+		public void run(){
+			mostrar_Temperatura();
+			double temp_actual = Double.parseDouble(temp.substring(0, 5));
+			encenderVentilador(temp_actual);
+		}
+		
+		public void mostrar_Temperatura(){
+			labeltemepaturaactual.setText(temp);	
+		}
+		
+		public void encenderVentilador(double actual_temp){
+			
+			if (actual_temp >= acencendido){
+				enviarDatos("Q");
+			}else{
+				enviarDatos("R");
+			}
+			
+		}
+		
+	}
+	
+	// =================================== ARDUINO ===================================================
+		// =================================== ARDUINO ===================================================
+		// =================================== ARDUINO ===================================================
+		// =================================== ARDUINO ===================================================
+		// =================================== ARDUINO ===================================================
+		// =================================== ARDUINO ===================================================
+		// =================================== ARDUINO ===================================================
+		// =================================== ARDUINO ===================================================
+		// =================================== ARDUINO ===================================================
+		//INICIO CODIGO ARDUINO
+	public void iniciarConexion(){
+		 CommPortIdentifier puertoID=null;
+	        Enumeration puertoEnum=CommPortIdentifier.getPortIdentifiers();
+	        
+	        while(puertoEnum.hasMoreElements()){
+	            CommPortIdentifier actualPuertoID=(CommPortIdentifier) puertoEnum.nextElement();
+	            if(PUERTO.equals(actualPuertoID.getName())){
+	                puertoID=actualPuertoID;
+	                break;
+	            }
+	        }
+	        
+	        if(puertoID==null){
+	            mostrarError("No se puede conectar al puerto");
+	            //System.exit(ERROR);
+	            System.exit(0);
+	        }
+	        
+	        try{
+	            serialPort = (SerialPort) puertoID.open(this.getClass().getName(), TIMEOUT);
+	            //Parámetros puerto serie
+	            
+	            serialPort.setSerialPortParams(DATA_RATE, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
+	            
+	            output = serialPort.getOutputStream();
+	            input =  new BufferedReader(new InputStreamReader(serialPort.getInputStream()));
+	            serialPort.addEventListener(this);
+				serialPort.notifyOnDataAvailable(true);
+	            System.out.println("Exito");
+	        } catch(Exception e){
+	            mostrarError(e.getMessage());
+	            //System.exit(ERROR);
+	            System.exit(0);
+	            
+	        }
+	        
+	        
+	}
+	
+  public void enviarDatos(String datos){
+      try{
+   	   System.out.println("Dato a enviar "+datos);
+          output.write(datos.getBytes());
+          //System.out.println(input.readLine());
+      } catch(Exception e){
+          mostrarError("ERROR");
+          //System.exit(ERROR);
+          System.exit(0);
+      }
+  }  
+  
+  public void enviarDatos(int datos){
+      try{
+   	   
+          output.write(datos);
+      } catch(Exception e){
+          mostrarError("ERROR");
+          //System.exit(ERROR);
+          System.exit(0);
+      }
+  }  
+  
+  public synchronized void serialEvent(SerialPortEvent oEvent) {
+		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
+			try {
+				String inputLine=input.readLine();
+				if(inputLine.equalsIgnoreCase("fotocelda activa")){
+					
+				}
+				System.out.println(inputLine);
+				
+				if(inputLine.length()==7 && inputLine.substring(6,7).equals("C")){
+					/*Temperatura t = new Temperatura(inputLine);
+					t.start();*/
+				}
+				
+				
+				/*
+				if(!inputLine.equals("22081")){
+					System.out.println(inputLine);
+				}*/
+				
+				
+			} catch (Exception e) {
+				System.err.println(e.toString());
+			}
+		}
+		// Ignore all the other eventTypes, but you should consider the other ones.
+	}
+
+  
+  public void mostrarError(String mensaje){
+      System.out.println(mensaje+ "Error");
+  }
+  
+  public synchronized void close() {
+		if (serialPort != null) {
+			serialPort.removeEventListener();
+			serialPort.close();
+		}
+	}
+  
+  //FIN CODIGO ARDUINO
+	// =================================== ARDUINO ===================================================
+	// =================================== ARDUINO ===================================================
+	// =================================== ARDUINO ===================================================
+	// =================================== ARDUINO ===================================================
+	// =================================== ARDUINO ===================================================
+	// =================================== ARDUINO ===================================================
+	// =================================== ARDUINO ===================================================
+	// =================================== ARDUINO ===================================================
+	
+	
+	
 }
