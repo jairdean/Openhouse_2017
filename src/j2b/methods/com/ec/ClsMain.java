@@ -7,11 +7,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -30,15 +32,19 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.Enumeration;
+import java.io.IOException;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 
 import javax.swing.JTextField;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.border.BevelBorder;
 
 public class ClsMain extends JFrame implements SerialPortEventListener {
 
@@ -76,10 +82,10 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
-	private JLabel lblNewLabel_4;
 	private JLabel lbl_smarthouse;
 	private JLabel lblActivarAc;
 	private JLabel lblLuz;
+	private JLabel lblNewLabel_4;
 	/**
 	 * Launch the application.
 	 */
@@ -108,7 +114,7 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 501);
+		setBounds(100, 100, 600, 364);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -128,6 +134,7 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 		panel.add(lblLuz);
 		
 		tglbtnLuzExteriorOn = new JToggleButton("Luz exterior OFF");
+		tglbtnLuzExteriorOn.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 204), new Color(0, 102, 204), new Color(51, 0, 204), new Color(51, 204, 204)));
 		tglbtnLuzExteriorOn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(tglbtnLuzExteriorOn.isSelected()){
@@ -145,6 +152,7 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 		panel.add(tglbtnLuzExteriorOn);
 		
 		tglbtnLuzPiso = new JToggleButton("Luz 1 piso OFF");
+		tglbtnLuzPiso.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 204), new Color(0, 102, 204), new Color(51, 0, 204), new Color(51, 204, 204)));
 		tglbtnLuzPiso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(tglbtnLuzPiso.isSelected()){
@@ -163,6 +171,8 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 		panel.add(tglbtnLuzPiso);
 		
 		tglbtnLuzPiso_1 = new JToggleButton("Luz 2 piso OFF");
+		tglbtnLuzPiso_1.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 204), new Color(0, 102, 204), new Color(51, 0, 204), new Color(51, 204, 204)));
+		
 		tglbtnLuzPiso_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(tglbtnLuzPiso_1.isSelected()){
@@ -180,6 +190,7 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 		panel.add(tglbtnLuzPiso_1);
 		
 		tglbtnLuzGarageOff = new JToggleButton("Luz parking OFF");
+		tglbtnLuzGarageOff.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 204), new Color(0, 102, 204), new Color(51, 0, 204), new Color(51, 204, 204)));
 		tglbtnLuzGarageOff.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(tglbtnLuzGarageOff.isSelected()){
@@ -229,6 +240,8 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 		txtactivarac.setColumns(10);
 		
 		JButton btnAc = new JButton("AC");
+		btnAc.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(102, 0, 0), new Color(153, 0, 0), new Color(204, 0, 0), new Color(255, 0, 0)));
+		
 		btnAc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				if(!txtactivarac.getText().equals("")){
@@ -253,6 +266,7 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 		panel_2.setLayout(null);
 		
 		tglabrirventana = new JToggleButton("Abrir ventana OFF");
+		tglabrirventana.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 51, 0), new Color(0, 153, 0), new Color(0, 255, 0), new Color(0, 153, 51)));
 		tglabrirventana.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(tglabrirventana.isSelected()){
@@ -268,6 +282,8 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 		panel_2.add(tglabrirventana);
 		
 		tglbtnAbrirPuertaOff = new JToggleButton("Abrir puerta OFF");
+		tglbtnAbrirPuertaOff.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 51, 0), new Color(0, 153, 0), new Color(0, 255, 0), new Color(0, 153, 51)));
+		
 		tglbtnAbrirPuertaOff.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(tglbtnAbrirPuertaOff.isSelected()){
@@ -281,9 +297,11 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 			}
 		});
 		tglbtnAbrirPuertaOff.setBounds(10, 60, 150, 23);
+		
 		panel_2.add(tglbtnAbrirPuertaOff);
 		
 		tglbtnAbrirParkingOff = new JToggleButton("Abrir parking OFF");
+		tglbtnAbrirParkingOff.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 51, 0), new Color(0, 153, 0), new Color(0, 255, 0), new Color(0, 153, 51)));
 		tglbtnAbrirParkingOff.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(tglbtnAbrirParkingOff.isSelected()){
@@ -309,6 +327,7 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 		panel_3.setLayout(null);
 		
 		tglbtnActivarModulo = new JToggleButton("Activar modulo OFF");
+		tglbtnActivarModulo.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 204), new Color(0, 102, 204), new Color(51, 0, 204), new Color(51, 204, 204)));
 		tglbtnActivarModulo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				/////////////////////////////////////////////
@@ -347,24 +366,27 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 		tglbtnActivarModulo.setBounds(10, 11, 149, 23);
 		panel_3.add(tglbtnActivarModulo);
 		
+		JButton button = new JButton("Apagar Alarma");
+		button.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 204), new Color(0, 102, 204), new Color(51, 0, 204), new Color(51, 204, 204)));
+		
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		button.setBounds(283, 11, 134, 25);
+		panel_3.add(button);
+		
+		JButton button_1 = new JButton("Clave Puerta");
+		button_1.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 204), new Color(0, 102, 204), new Color(51, 0, 204), new Color(51, 204, 204)));
+		
+		button_1.setBounds(283, 47, 134, 25);
+		panel_3.add(button_1);
+		
 		lblNewLabel_4 = new JLabel();
+		
 		lblNewLabel_4.setIcon(new ImageIcon(".\\imagen\\pp.jpg"));
-		lblNewLabel_4.setBounds(0, 0, 383, 197);
+		lblNewLabel_4.setBounds(0, 0, 507, 197);
 		panel_3.add(lblNewLabel_4);
-		
-		lbl_smarthouse = new JLabel("");
-		ImageIcon smarthouse1 = new ImageIcon(".\\imagen\\smarthouse1.gif");
-		lbl_smarthouse.setBounds(371, 0,10, 10);
-		lbl_smarthouse.setIcon(smarthouse1);
-		panel_3.add(lbl_smarthouse);
-		
-		JButton btnApagarAlarma = new JButton("Apagar Alarma");
-		btnApagarAlarma.setBounds(286, 10, 134, 25);
-		panel_3.add(btnApagarAlarma);
-		
-		JButton btnClavePuerta = new JButton("Clave Puerta");
-		btnClavePuerta.setBounds(286, 45, 134, 25);
-		panel_3.add(btnClavePuerta);
 		
 		lblNewLabel = new JLabel();
 		lblNewLabel.setIcon(new ImageIcon(".\\imagen\\fondo1.jpg"));
