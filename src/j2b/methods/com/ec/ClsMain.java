@@ -31,7 +31,11 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
 import java.io.IOException;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -45,6 +49,7 @@ import javax.swing.JPasswordField;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.border.BevelBorder;
+import javax.swing.JCheckBox;
 
 public class ClsMain extends JFrame implements SerialPortEventListener {
 
@@ -60,6 +65,14 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 	/**
 	 * 
 	 */
+    //OTRAS VARIABLES
+    List<Boolean>t;  
+    StringBuilder claveDoor = new StringBuilder();
+    String comparisonClave;
+    String destinatorio_mail = "jhon.cast92@gmail.com";
+    List<String> asuntos;
+    //FIN OTRAS VARIABLES
+    
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JToggleButton tglbtnLuzExteriorOn;
@@ -86,6 +99,11 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 	private JLabel lblActivarAc;
 	private JLabel lblLuz;
 	private JLabel lblNewLabel_4;
+	private JToggleButton tglbtnLuzPiso_2;
+	private JButton btnApagar;
+	private JButton btnLucesOn;
+	private JButton btnLucesOff;
+	private JLabel label_1;
 	/**
 	 * Launch the application.
 	 */
@@ -107,10 +125,14 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 	 * @param clave_usuario 
 	 */
 	public ClsMain(String clave_usuario) {
+		setTitle("SmartHouse J2B");
 		
 		//Llamar al metodo IniciarConexion
-		iniciarConexion();
+		//iniciarConexion();
 		//FIN
+		comparisonClave = "STST";
+		lecturaEmail le = new lecturaEmail();
+		le.start();
 		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -140,15 +162,15 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 				if(tglbtnLuzExteriorOn.isSelected()){
 					tglbtnLuzExteriorOn.setText("Luz exterior ON");
 					System.out.println("Luz exterior ON");
-					enviarDatos("E");
+					enviarDatos("K");
 				}else{
 					tglbtnLuzExteriorOn.setText("Luz exterior OFF");
 					System.out.println("Luz exterior OFF");
-					enviarDatos("F");
+					enviarDatos("L");
 				}
 			}
 		});
-		tglbtnLuzExteriorOn.setBounds(10, 26, 149, 23);
+		tglbtnLuzExteriorOn.setBounds(321, 46, 149, 23);
 		panel.add(tglbtnLuzExteriorOn);
 		
 		tglbtnLuzPiso = new JToggleButton("Luz 1 piso OFF");
@@ -158,16 +180,16 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 				if(tglbtnLuzPiso.isSelected()){
 					tglbtnLuzPiso.setText("Luz 1 piso ON");
 					System.out.println("Luz 1 piso ON");
-					enviarDatos("G");
+					enviarDatos("E");
 				}else{
 					tglbtnLuzPiso.setText("Luz 1 piso OFF");
 					System.out.println("Luz 1 piso OFF");
-					enviarDatos("H");
+					enviarDatos("F");
 				}
 				
 			}
 		});
-		tglbtnLuzPiso.setBounds(10, 72, 149, 23);
+		tglbtnLuzPiso.setBounds(12, 36, 149, 23);
 		panel.add(tglbtnLuzPiso);
 		
 		tglbtnLuzPiso_1 = new JToggleButton("Luz 2 piso OFF");
@@ -178,15 +200,15 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 				if(tglbtnLuzPiso_1.isSelected()){
 					tglbtnLuzPiso_1.setText("Luz 2 piso ON");
 					System.out.println("Luz 2 piso ON");
-					enviarDatos("N");
+					enviarDatos("G");
 				}else{
 					tglbtnLuzPiso_1.setText("Luz 2 piso OFF");
 					System.out.println("Luz 2 piso OFF");
-					enviarDatos("M");
+					enviarDatos("H");
 				}	
 			}
 		});
-		tglbtnLuzPiso_1.setBounds(321, 26, 149, 23);
+		tglbtnLuzPiso_1.setBounds(12, 69, 149, 23);
 		panel.add(tglbtnLuzPiso_1);
 		
 		tglbtnLuzGarageOff = new JToggleButton("Luz parking OFF");
@@ -204,13 +226,33 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 				}
 			}
 		});
-		tglbtnLuzGarageOff.setBounds(321, 72, 149, 23);
+		tglbtnLuzGarageOff.setBounds(321, 82, 149, 23);
 		panel.add(tglbtnLuzGarageOff);
+		
+		tglbtnLuzPiso_2 = new JToggleButton("Luz 3 piso OFF");
+		tglbtnLuzPiso_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(tglbtnLuzGarageOff.isSelected()){
+					tglbtnLuzGarageOff.setText("Luz parking ON");
+					System.out.println("Luz parking ON");
+					enviarDatos("I");
+				}else{
+					tglbtnLuzGarageOff.setText("Luz parking OFF");
+					System.out.println("Luz parking OFF");
+					enviarDatos("J");
+				}
+			}
+		});
+		tglbtnLuzPiso_2.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 204), new Color(0, 102, 204), new Color(51, 0, 204), new Color(51, 204, 204)));
+		tglbtnLuzPiso_2.setBounds(12, 104, 149, 25);
+		panel.add(tglbtnLuzPiso_2);
 		
 		lblNewLabel_1 = new JLabel();
 		lblNewLabel_1.setIcon(new ImageIcon(".\\imagen\\luz.jpg"));
 		lblNewLabel_1.setBounds(0, 0, 507, 197);
 		panel.add(lblNewLabel_1);
+		
+		
 		
 		panel_1 = new JPanel();
 		tabbedPane.addTab("TEMPERATURA", null, panel_1, null);
@@ -272,9 +314,11 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 				if(tglabrirventana.isSelected()){
 					tglabrirventana.setText("Abrir ventana ON");
 					System.out.println("Abrir ventana ON");
+					abrirVentana();
 				}else{
 					tglabrirventana.setText("Abrir ventana OFF");
 					System.out.println("Abrir ventana OFF");
+					cerrarVentana();
 				}
 			}
 		});
@@ -289,6 +333,7 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 				if(tglbtnAbrirPuertaOff.isSelected()){
 					tglbtnAbrirPuertaOff.setText("Abrir puerta ON");
 					System.out.println("Abrir puerta ON");
+					abrirPuerta();
 				}else{
 					tglbtnAbrirPuertaOff.setText("Abrir ventana OFF");
 					System.out.println("Abrir puerta OFF");
@@ -351,8 +396,7 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 					tglbtnActivarModulo.setText("Activar modulo ON");
 					System.out.println("Activar modulo ON");
 					//agregar aqui la sentencia para habilita los setvisible(true)
-					
-					
+					//MetMailing.send("temp92oral@gmail.com","casaAbierta","jhon.cast92@gmail.com","hello javatpoint","How r u?");
 					
 					
 				}else{
@@ -377,16 +421,147 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 		panel_3.add(button);
 		
 		JButton button_1 = new JButton("Clave Puerta");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				comparisonClave = JOptionPane.showInputDialog("Ingrese la nueva clave MAX: 4Dig");
+				comparisonClave = comparisonClave.substring(0,5);
+			}
+		});
 		button_1.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 204), new Color(0, 102, 204), new Color(51, 0, 204), new Color(51, 204, 204)));
 		
 		button_1.setBounds(283, 47, 134, 25);
 		panel_3.add(button_1);
+		
+		JLabel lblEmail = new JLabel("Email: ");
+		lblEmail.setForeground(Color.ORANGE);
+		lblEmail.setBounds(10, 111, 56, 16);
+		panel_3.add(lblEmail);
+		
+		label_1 = new JLabel("");
+		label_1.setForeground(Color.ORANGE);
+		label_1.setBounds(78, 111, 143, 16);
+		label_1.setText(destinatorio_mail);
+		panel_3.add(label_1);
+		
+		JButton btnCambiar = new JButton("Cambiar");
+		btnCambiar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				changeDestination();
+			}
+		});
+		btnCambiar.setBounds(283, 107, 134, 25);
+		btnCambiar.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 204), new Color(0, 102, 204), new Color(51, 0, 204), new Color(51, 204, 204)));
+		panel_3.add(btnCambiar);
 		
 		lblNewLabel_4 = new JLabel();
 		
 		lblNewLabel_4.setIcon(new ImageIcon(".\\imagen\\pp.jpg"));
 		lblNewLabel_4.setBounds(0, 0, 507, 197);
 		panel_3.add(lblNewLabel_4);
+		
+		
+		
+		JPanel panel_4 = new JPanel();
+		tabbedPane.addTab("AUTOMATIZACIÓN", null, panel_4, null);
+		panel_4.setLayout(null);
+		
+		JCheckBox l1 = new JCheckBox("Luz 1");
+		l1.setBounds(8, 9, 113, 25);
+		panel_4.add(l1);
+		
+		JCheckBox l2 = new JCheckBox("Luz 2");
+		l2.setBounds(8, 39, 113, 25);
+		panel_4.add(l2);
+		
+		JCheckBox l3 = new JCheckBox("Luz 3");
+		l3.setBounds(8, 69, 113, 25);
+		panel_4.add(l3);
+		
+		JCheckBox l4 = new JCheckBox("Luz 4");
+		l4.setBounds(8, 99, 113, 25);
+		panel_4.add(l4);
+		
+		JButton btnProgramar = new JButton("Programar ON");
+		btnProgramar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				t = new ArrayList<>();
+				t.add(l1.isSelected());
+				t.add(l2.isSelected());
+				t.add(l3.isSelected());
+				t.add(l4.isSelected());
+				
+				programarLucesOn(t);
+				
+			}
+		});
+		btnProgramar.setBounds(360, 31, 135, 25);
+		panel_4.add(btnProgramar);
+		
+		JButton btnProgramarOff = new JButton("Programar OFF");
+		btnProgramarOff.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				t = new ArrayList<>();
+				t.add(l1.isSelected());
+				t.add(l2.isSelected());
+				t.add(l3.isSelected());
+				t.add(l4.isSelected());
+				
+				programarLucesOff(t);
+			}
+		});
+		btnProgramarOff.setBounds(360, 69, 135, 25);
+		panel_4.add(btnProgramarOff);
+		
+		JButton btnEncender = new JButton("Encender");
+		btnEncender.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				t = new ArrayList<>();
+				t.add(l1.isSelected());
+				t.add(l2.isSelected());
+				t.add(l3.isSelected());
+				t.add(l4.isSelected());
+				
+				encenderLuces(t);
+				
+			}
+		});
+		btnEncender.setBounds(8, 133, 97, 25);
+		panel_4.add(btnEncender);
+		
+		btnApagar = new JButton("Apagar");
+		btnApagar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				t = new ArrayList<>();
+				t.add(l1.isSelected());
+				t.add(l2.isSelected());
+				t.add(l3.isSelected());
+				t.add(l4.isSelected());
+				apagarLuces(t);
+			}
+		});
+		btnApagar.setBounds(115, 133, 97, 25);
+		panel_4.add(btnApagar);
+		
+		btnLucesOn = new JButton("Luces ON");
+		btnLucesOn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				todasLucesOn();
+			}
+		});
+		btnLucesOn.setBounds(226, 133, 97, 25);
+		panel_4.add(btnLucesOn);
+		
+		btnLucesOff = new JButton("Luces OFF");
+		btnLucesOff.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				todasLucesOff();
+			}
+		});
+		btnLucesOff.setBounds(335, 133, 97, 25);
+		panel_4.add(btnLucesOff);
 		
 		lblNewLabel = new JLabel();
 		lblNewLabel.setIcon(new ImageIcon(".\\imagen\\fondo1.jpg"));
@@ -395,6 +570,107 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 		
 		
 	}
+	
+	//=================METODOS===========================================
+	public void encenderLuces(List<Boolean> tluces){
+		
+		if(tluces.get(0)){
+			enviarDatos("E");
+		}
+
+		if(tluces.get(1)){
+			enviarDatos("G");
+		}
+
+		if(tluces.get(2)){
+			enviarDatos("I");
+		}
+
+		if(tluces.get(3)){
+			enviarDatos("K");
+		}
+		
+	}
+	
+
+	public void apagarLuces(List<Boolean> tluces){
+		
+		if(tluces.get(0)){
+			enviarDatos("F");
+		}
+
+		if(tluces.get(1)){
+			enviarDatos("H");
+		}
+
+		if(tluces.get(2)){
+			enviarDatos("J");
+		}
+
+		if(tluces.get(3)){
+			enviarDatos("L");
+		}
+		
+	}
+	
+	public void todasLucesOn(){
+		enviarDatos("E");
+		enviarDatos("G");
+		enviarDatos("I");
+		enviarDatos("K");
+	}
+	
+	public void todasLucesOff(){
+		
+		enviarDatos("F");
+		enviarDatos("H");
+		enviarDatos("J");
+		enviarDatos("L");
+		
+	}
+	
+	public void programarLucesOn(List<Boolean> tluces){
+		
+		String tempo = JOptionPane.showInputDialog("Ingrese la hora \n Ejm: 14:35");
+		int mis_horas = Integer.parseInt(tempo.substring(0, 2));
+		int mis_minutos = Integer.parseInt(tempo.substring(3, 5));
+		timerLuces temporizadorLuces = new timerLuces(mis_horas,mis_minutos,tluces,true);
+		temporizadorLuces.start();
+		
+	}
+	
+
+	public void programarLucesOff(List<Boolean> tluces){
+		
+		String tempo = JOptionPane.showInputDialog("Ingrese la hora \n Ejm: 14:35");
+		int mis_horas = Integer.parseInt(tempo.substring(0, 2));
+		int mis_minutos = Integer.parseInt(tempo.substring(3, 5));
+		timerLuces temporizadorLuces2 = new timerLuces(mis_horas,mis_minutos,tluces,false);
+		temporizadorLuces2.start();
+		
+	}
+	
+	public void abrirVentana(){
+		enviarDatos("A");
+	}
+	
+	public void cerrarVentana(){
+		enviarDatos("A");
+	}
+	
+	public void abrirPuerta(){
+		enviarDatos("A");
+	}
+	
+	public void clavePuerta(){
+		
+	}
+	
+	public void changeDestination(){
+		destinatorio_mail = JOptionPane.showInputDialog("Ingresar nuevo Email Destinatario");
+		label_1.setText(destinatorio_mail);
+	}
+	
 	//============================== H I L O ==================================================
 	
 	public void movimiento(){
@@ -453,6 +729,187 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 				enviarDatos("R");
 			}
 			
+		}
+		
+	}
+	
+
+	public class timerLuces extends Thread{
+		
+		private int hora,minuto;
+		private List<Boolean>tluces;
+		private boolean opcionON;
+		
+		public timerLuces(int hora, int minuto,List<Boolean> tluces,boolean opcionOn){
+			this.hora = hora;
+			this.minuto = minuto;
+			this.tluces = tluces;
+			this.opcionON = opcionOn;
+		}
+		
+		public void run(){
+			
+			int hora_actual;
+			int minuto_actual;
+			
+			
+			while(true){
+				Date date = new Date();
+				hora_actual = date.getHours();
+				minuto_actual = date.getMinutes();
+				System.out.println(hora_actual+":"+minuto_actual);
+				
+				if(hora == hora_actual && minuto == minuto_actual){
+					
+					System.out.println("Timer Logrado enviar datos");
+					
+					if(opcionON){
+						if(tluces.get(0)){
+							enviarDatos("E");
+						}
+
+						if(tluces.get(1)){
+							enviarDatos("G");
+						}
+
+						if(tluces.get(2)){
+							enviarDatos("I");
+						}
+
+						if(tluces.get(3)){
+							enviarDatos("K");
+						}
+					}else{
+						if(tluces.get(0)){
+							enviarDatos("F");
+						}
+
+						if(tluces.get(1)){
+							enviarDatos("H");
+						}
+
+						if(tluces.get(2)){
+							enviarDatos("J");
+						}
+
+						if(tluces.get(3)){
+							enviarDatos("L");
+						}
+					}
+					
+					
+					
+					this.stop();
+				}
+				
+				try {
+					Thread.sleep(10000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			
+			
+		}
+		
+	}
+	
+	public class lecturaEmail extends Thread{
+		
+		public void run(){
+			
+			
+			while(true){
+				asuntos = new ArrayList<>();
+				asuntos = MetMailing.receiveEmail("pop.gmail.com", "pop3", "temp92oral@gmail.com", "casaAbierta");
+				for (String asunto : asuntos) {
+					String[] parts = asunto.split("-");
+					for (String part : parts) {
+						System.out.println(part);
+						//generarComando(part);
+					}
+					
+				}
+				try {
+					Thread.sleep(30000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			
+		}
+		
+		public void generarComando(String comando){
+			switch(comando){
+			
+				case "LIGHTS OFF":
+					todasLucesOff();
+				break;
+				
+				case "LIGHTS ON":
+					todasLucesOn();
+					break;
+					
+				case "L1 OFF":
+					enviarDatos("F");
+					break;
+					
+				case "L2 OFF":
+					enviarDatos("H");
+					break;
+					
+				case "L3 OFF":
+					enviarDatos("J");
+					break;
+					
+				case "L4 OFF":
+					enviarDatos("L");
+					break;
+					
+				case "L1 ON":
+					enviarDatos("E");
+					break;
+					
+				case "L2 ON":
+					enviarDatos("G");
+					break;
+					
+				case "L3 ON":
+					enviarDatos("I");
+					break;
+					
+				case "L4 ON":
+					enviarDatos("K");
+					break;
+					
+				case "D OPEN":
+					
+					break;
+					
+				case "W OPEN":
+					
+					break;
+					
+				case "W CLOSE":
+					
+					break;
+					
+				case "SEC ON":
+					
+					break;
+					
+				case "SEC OFF":
+					
+					break;
+							
+				default:
+						
+					break;
+			}
 		}
 		
 	}
@@ -543,11 +1000,19 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 					t.start();*/
 				}
 				
-				
-				/*
-				if(!inputLine.equals("22081")){
-					System.out.println(inputLine);
-				}*/
+				if(inputLine.substring(0, 1).equals("S") || inputLine.substring(0, 1).equals("T")){
+					String letra = inputLine.substring(0, 1);
+					System.out.println("Entro a la parte de la clave "+letra);
+					claveDoor.append(letra);
+					if(claveDoor.length()==4){
+						if(claveDoor.equals(comparisonClave)){
+							abrirPuerta();
+						}else{
+							MetMailing.send("temp92oral@gmail.com","casaAbierta","jhon.cast92@gmail.com","Seguridad Forzada","Han colocado mal su clave en la puerta");
+						}
+						claveDoor = new StringBuilder();
+					}
+				}
 				
 				
 			} catch (Exception e) {
@@ -568,17 +1033,4 @@ public class ClsMain extends JFrame implements SerialPortEventListener {
 			serialPort.close();
 		}
 	}
-  
-  //FIN CODIGO ARDUINO
-	// =================================== ARDUINO ===================================================
-	// =================================== ARDUINO ===================================================
-	// =================================== ARDUINO ===================================================
-	// =================================== ARDUINO ===================================================
-	// =================================== ARDUINO ===================================================
-	// =================================== ARDUINO ===================================================
-	// =================================== ARDUINO ===================================================
-	// =================================== ARDUINO ===================================================
-	
-	
-	
 }
